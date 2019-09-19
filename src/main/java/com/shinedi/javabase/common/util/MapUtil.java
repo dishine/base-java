@@ -8,7 +8,9 @@ import java.util.List;
 public class MapUtil {
 
     /**
-     * 按矩形计算中心点
+     * 按矩形计算中心点 返回中心点经纬度
+     * @param positions
+     * @return
      */
     public static Position getCenterPosByRectangle(List<Position> positions) {
         if (positions == null || positions.size() < 2) {

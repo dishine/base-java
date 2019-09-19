@@ -37,21 +37,6 @@ public class SpringContext implements ApplicationContextAware {
         return applicationContext.getBean(clazz);
     }
 
-    public static Optional<HttpServletRequest> getRequest() {
-        try {
-            return Optional.ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
-
-    public static Optional<HttpServletResponse> getResponse() {
-        try {
-            return Optional.ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
 
     private static ThreadLocal<CurrentContext> threadLocal = new NamedThreadLocal<>("CurrentContext");
 
