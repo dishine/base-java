@@ -24,6 +24,16 @@ public class ServletUtil {
         return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
+
+    public static Optional<HttpServletRequest> getRequest() {
+        try {
+            return Optional.ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+
     /**
      * 获取当前请求 response
      *
@@ -34,13 +44,6 @@ public class ServletUtil {
     }
 
 
-    public static Optional<HttpServletRequest> getRequest() {
-        try {
-            return Optional.ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
 
     public static Optional<HttpServletResponse> getResponse() {
         try {
