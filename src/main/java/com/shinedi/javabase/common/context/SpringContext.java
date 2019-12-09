@@ -62,7 +62,13 @@ public class SpringContext implements ApplicationContextAware {
             return currentContext.getCurrentTimestamp();
         }
     }
-
+    public static Optional<HttpServletResponse> getResponse() {
+        try {
+            return Optional.ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
 
     public static void removeContext() {
         threadLocal.remove();

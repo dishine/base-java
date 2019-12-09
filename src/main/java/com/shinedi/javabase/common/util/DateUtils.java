@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import io.netty.util.internal.MathUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -282,6 +281,15 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return t / (60 * 1000);
     }
 
+
+    /**
+     * 得到日期时间字符串，转换格式（yyyy-MM-dd HH:mm:ss）
+     */
+    public static String formatDateTimeYYMMDD(Date date) {
+        if (date == null)
+            return "";
+        return formatDate(date, "yyyy-MM-dd");
+    }
     /**
      * 分种差
      *

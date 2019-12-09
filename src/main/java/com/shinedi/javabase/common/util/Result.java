@@ -63,7 +63,7 @@ public class Result<T> {
         return result;
     }
 
-    public static Result getFail(String msg, int errCode) {
+    public static Result getFail(String msg) {
         Result result = new Result();
         result.code = CODE_FAILED;
         result.msg = msg;

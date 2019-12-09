@@ -1,19 +1,24 @@
 package com.shinedi.javabase.common.util;
 
-
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class ExcelUtils {
@@ -55,4 +60,29 @@ public class ExcelUtils {
             }
         }
     }
+
+    /**
+     * 导出Excel方法
+     * @param excelDto 导出对应的list<object></>
+     */
+    public void exportExcel(List<Object> excelDto) {
+        //todo 标题
+        List<String> row1 = Lists.newArrayList("","","");
+        List<List<String>> rows = new ArrayList<>();
+        rows.add(row1);
+        for (Object w  : excelDto) {
+            //todo 从object中获得 标题中相对应
+            List<String> res = Lists.newArrayList("","");
+            rows.add(res);
+        }
+        //todo 导出Excel的位置及名称
+        BigExcelWriter writer = ExcelUtil.getBigWriter("/Users/shinedi/Documents/wind/bill/11-25.xls");
+        // 一次性写出内容，使用默认样式
+        writer.write(rows);
+        //todo 关闭writer，释放内存
+        writer.close();
+    }
+
+
+
 }

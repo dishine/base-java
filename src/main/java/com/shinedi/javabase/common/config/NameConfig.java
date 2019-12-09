@@ -15,8 +15,14 @@ public class NameConfig {
         this.WINDBASE = WINDBASE;
     }
 
+    /**
+     * 从配置文件中获取内容
+     * @param name name
+     */
     @Value("${cloudname.team}")
+    private void setName(String name){
+        WINDBASE = name;
+    }
+
     public String WINDBASE;
-
-
 }
