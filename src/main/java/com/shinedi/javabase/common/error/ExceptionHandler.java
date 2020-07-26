@@ -25,7 +25,7 @@ public class ExceptionHandler {
     @ResponseBody
     public Result handlerBusinessException(HttpServletRequest httpServletRequest, BusinessException b) {
         logger.error("err", b);
-        return Result.getFail(b.getErrMsg() , b.getErrCode());
+        return Result.getFail(b.getErrMsg());
     }
 
 
