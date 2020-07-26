@@ -9,3 +9,5 @@ public class JavaBaseApplication {
 		SpringApplication.run(JavaBaseApplication.class, args);
 	}
 }
+Beanutils.copyProperties( )
+		log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
