@@ -1,6 +1,7 @@
 package com.shinedi.javabase.common.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
