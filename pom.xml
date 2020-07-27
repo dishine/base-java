@@ -29,7 +29,15 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
-			<version>1.0.2</version>
+			<version>2.2.6</version>
+			<classifier>javadoc</classifier>
+			<type>javadoc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.51.Final</version>
 		</dependency>
 
 		<dependency>
