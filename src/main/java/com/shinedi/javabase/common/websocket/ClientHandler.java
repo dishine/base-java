@@ -54,7 +54,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
     public void channelActive(ChannelHandlerContext channelHandlerContext) throws Exception {
         LOGGER.info("===[建立连接]===");
         Channel channel = channelHandlerContext.channel();
-        // 握手
+
         webSocketClientHandshaker.handshake(channel);
     }
 
@@ -89,11 +89,14 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
+
         Channel channel = channelHandlerContext.channel();
+        LOGGER.info("===[message] : {}===",msg);
+        channel.write("ping");
         if (!webSocketClientHandshaker.isHandshakeComplete()) {
             webSocketClientHandshaker.finishHandshake(channel, (FullHttpResponse) msg);
             handshakeFuture.setSuccess();
-            // 将当前登陆用户保存起来
+            LOGGER.info("===[message] : {}===",msg);
             return;
         }
         channelHandlerContext.flush();

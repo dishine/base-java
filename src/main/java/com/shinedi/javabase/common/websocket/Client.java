@@ -9,13 +9,18 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshakerFactory;
 import io.netty.handler.codec.http.websocketx.WebSocketVersion;
+import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -67,7 +72,7 @@ public class Client  extends ChannelInitializer<SocketChannel>   {
                         this
                 );
                 // 发起异步连接操作  同步方法待成功
-                Channel channel = bootstrap.connect().sync().channel();
+                Channel channel = bootstrap.connect(new InetSocketAddress(this.url,0)).sync().channel();
                 // 等待客户端链路关闭
                 channel.closeFuture().sync();
             } catch (InterruptedException | URISyntaxException e) {
@@ -87,15 +92,21 @@ public class Client  extends ChannelInitializer<SocketChannel>   {
      * @param socketChannel socketChannel
      */
     @Override
-    protected void initChannel(SocketChannel socketChannel) {
+    protected void initChannel(SocketChannel socketChannel) throws NoSuchAlgorithmException {
         ChannelPipeline pipeline = socketChannel.pipeline();
         // 将请求与应答消息编码或者解码为HTTP消息
         pipeline.addLast(new HttpClientCodec());
+        if (this.url.startsWith("wss")){
+            SSLEngine sslEngine = SSLContext.getDefault().createSSLEngine();
+            pipeline.addLast("ssl", new SslHandler(sslEngine));
+        }
         // 将http消息的多个部分组合成一条完整的HTTP消息
         pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
+
         pipeline.addLast("http-chunked", new ChunkedWriteHandler());
         // 客户端Handler
         pipeline.addLast("handler", this.handler);
+
     }
 
 }
